@@ -1,0 +1,112 @@
+#coding=utf-8
+
+
+import random
+from numpy import *
+import matplotlib
+import matplotlib.pyplot as plt
+# 坐标的最大长度
+Maxdis = 1000
+# 种子实例最大数量
+SeedNum = 100
+# 特征的最大数量
+Maxf = 100
+# 种子特征的数量
+MaxSeed = 3
+# 星星特征的数量
+MaxStar = 7
+# 星星特征的实例数量的最大数量
+StarNum = 100
+# 划分大网格的参数
+Big = 10
+# 划分小网格的参数
+Small = 50
+
+list = []
+r_list = []
+f = 0
+e = 0
+
+
+def Gen_Instance(list, f, m, insNum):
+    for i in range(0, m):
+        for j in range(0, m):
+            for k in range(0, int(insNum/(m*m))):
+                dict = {}
+                x = random.uniform(i*Maxdis/m, i*Maxdis/m+Maxdis/m)
+                y = random.uniform(j*Maxdis/m, j*Maxdis/m+Maxdis/m)
+                dict["feature"] = chr(f+65)
+                dict["instance"] = (i*m + j)*insNum/(m*m) + k + 1
+                dict["X"] = x
+                dict["Y"] = y
+                list.append(dict)
+
+
+def Gen_Random_ins(r_list, f, insNum):
+    for j in range(insNum):
+        dict_r = {}
+        x = random.randint(0, Maxdis)
+        y = random.randint(0, Maxdis)
+        dict_r["feature"] = chr(f+65)
+        dict_r["instance"] = j+1
+        dict_r["X"] = x
+        dict_r["Y"] = y
+        print(dict_r)
+        r_list.append(dict_r)
+
+#for i in range(0, MaxSeed + MaxStar):
+#    if i < MaxSeed:
+#        Gen_Instance(list, f + i, Big, SeedNum)
+#    else:
+#        Gen_Instance(list, f + i, Small, StarNum)
+#print(len(list))
+for i in range(0, MaxSeed + MaxStar):
+    if i < MaxSeed:
+         Gen_Random_ins(r_list, e+i, SeedNum)
+    else:
+        Gen_Random_ins(r_list, e+i, StarNum)
+print(r_list)
+
+# g1 = plt.figure(1)
+# for dt in list:
+#     if dt["feature"] == "A":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="D", color="b", s=30)
+#     if dt["feature"] == "B":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="+", color="g", s=30)
+#     if dt["feature"] == "C":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="*", color="c", s=30)
+#     if dt["feature"] == "D":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="x", color="m", s=30)
+#     else:
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker=".", color="r", s=15)
+#     #if dt["feature"] == "C":
+#     #    plt.scatter(int(dt["X"]), int(dt["Y"]), marker="*", color="m", s=30)
+#     #else:
+#     #   plt.scatter(int(dt["X"]),int(dt["Y"]),color = "b",s = 30 )
+# plt.show()
+
+# g2 = plt.figure(2)
+# for dt in r_list:
+#     if dt["feature"] == "A":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="D", color="b", s=30)
+#     if dt["feature"] == "B":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="+", color="g", s=30)
+#     if dt["feature"] == "C":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="*", color="c", s=30)
+#     if dt["feature"] == "D":
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker="x", color="m", s=30)
+#     else:
+#         plt.scatter(int(dt["X"]), int(dt["Y"]), marker=".", color="r", s=15)
+# plt.show()
+
+#f = open("d:/data100000.txt", 'w')
+#for dt in list:
+#    f.write(str(dt["instance"]) + "\t" + str(dt["feature"]) + "\t" + str(dt["X"]) + "\t" + str(dt["Y"]))
+#    f.write("\n")
+#f.close()
+
+f = open("d:/data1.txt", "w")
+for dt in r_list:
+    f.write(str(dt["instance"]) + "\t" + str(dt["feature"]) + "\t" + str(dt["X"]) + "\t" + str(dt["Y"]))
+    f.write("\n")
+f.close()
